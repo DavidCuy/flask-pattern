@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  flask-pattern:
+    image: flask-pattern
+    container_name: flask-pattern
+    env_file: '.env'
+    environment:
+      PYTHONUNBUFFERED: 1
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes: 
+      - '.:/code'
+    
+   
