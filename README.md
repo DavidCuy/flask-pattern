@@ -37,6 +37,36 @@ En mac o linux
 source venv/bin/activate
 ```
 
+Una vez en nuestro ambiente virtual configuramos nunestras variables de entorno de la aplicación de acuerdo a nuestro sistema operativo:
+
+Windows:
+```
+set FLASK_APP=api
+set FLASK_RUN_HOST=0.0.0.0
+set FLASK_ENV=development 
+```
+
+Mac o linux:
+```
+export FLASK_APP=api
+export FLASK_RUN_HOST=0.0.0.0
+export FLASK_ENV=development 
+```
+
+Y corremos el server de flask:
+```
+flask run --host=0.0.0.0
+```
+
+Si queremos correr con docker, basta con ejecutar el comando:
+
+```
+docker-compose -f docker-compose.dev.yml up
+```
+
+### Debugger
+Para vscode, se puede revisar la configuración de los debugger (flask y docker) por si se quiere implementar, esto se encuentran [aquí](documentation/vscode_flask_debuger.md)
+
 ## Documentacion de API
 
 De igual manera se deja un [template de la API en OpenAPI3](documentation/api/api_gateway.yml), para integrarse facilmente con swagger o postman

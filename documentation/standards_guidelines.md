@@ -210,11 +210,11 @@ For Git, we'll use GitFlow Workflow metodology. This metodology split software p
 * __hotfix__: If a bug is found in production, this one should be fixed in hotfix branch. This branch comes out from main. Ex: `hotfix/country_not_found`
 * __release__: For every type of release like stagging, dev, UAT, etc. It should be with this prefix. This branch merge from develop. Ex: `release/UAT`
 
-![image](documentation/images/gitflow.svg)
+![image](images/gitflow.svg)
 
 ## Debug
 
-For debug information in this [link](documentation/vscode_flask_debuger.md)
+For debug information in this [link](vscode_flask_debuger.md)
 
 
 
