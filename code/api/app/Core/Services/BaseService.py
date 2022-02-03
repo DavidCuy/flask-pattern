@@ -1,13 +1,15 @@
 
-from typing import List, Type, cast
-from sqlalchemy.orm.session import Session
+from typing import List, Tuple, Type, cast
+
+from sqlalchemy.orm.query import Query
 from ..Data.BaseModel import BaseModel
+from sqlalchemy.orm.session import Session
 
 class BaseService:
     def __init__(self, model: Type) -> None:
         self.model = model
     
-    def get_all(self, session: Session, paginate = False, page = 1, per_page = 10):
+    def get_all(self, session: Session, paginate = False, page = 1, per_page = 10) -> Tuple[Query, BaseModel]:
         """ Obtiene todos los elementos del modelo de datos especificado
 
         Args:
@@ -54,8 +56,11 @@ class BaseService:
         """
         return cast(BaseModel, self.model).get_one(session, column_name, column_value)
     
-    def multiple_filters(self, session: Session, filters: List[dict], paginate = False, page = 1, per_page = 10, first: bool = False):
-        return cast(BaseModel, self.model).filters(session, filters, paginate, page, per_page, first)
+    def multiple_filters(self, session: Session, filters: List[dict], paginate = False, page = 1, per_page = 10, first: bool = False, search_filters: dict = {}, search_method='AND'):
+        return cast(BaseModel, self.model).filters(session, filters, paginate, page, per_page, first, search_filters, search_method)
+    
+    def count_with_query(self, query: Query) -> int:
+        return query.count()
     
     def count_elements(self, session: Session) -> int:
         return cast(BaseModel, self.model).count(session)
@@ -77,3 +82,12 @@ class BaseService:
     
     def get_rules_for_store(self):
         return cast(BaseModel, self.model).rules_for_store()
+
+    def get_filter_columns(self) -> List[str]:
+        return cast(BaseModel, self.model).filter_columns
+    
+    def get_search_columns(self) -> List[str]:
+        return cast(BaseModel, self.model).search_columns
+
+    def get_relationship_names(self) -> List[str]:
+        return cast(BaseModel, self.model).relationship_names

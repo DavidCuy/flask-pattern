@@ -1,12 +1,14 @@
 from __future__ import annotations
-from abc import abstractproperty
-from typing import Any, Dict, List, Type
-from sqlalchemy import Column, Integer, orm, func
+import json
+from json.encoder import JSONEncoder
+from typing import Any, Dict, List, Type, cast
+from operator import and_, or_
+from sqlalchemy import Column, Integer, orm
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.query import Query
 from typing import List
 
-from ....database.DBConnection import db
+from ....database.DBConnection import db, AlchemyEncoder
 
 class BaseModel(db.Model):
     """ Base model for a child classes implementations
@@ -26,6 +28,13 @@ class BaseModel(db.Model):
     ## Model identifier. All tables from database should have
     id = Column(Integer, primary_key=True, autoincrement=True)
     model_path_name = ""
+    
+    filter_columns = []
+    relationship_names = []
+    search_columns = []
+
+    # for this project
+    signed_urls = []
 
     @property
     def attrs(self) -> List[str]:
@@ -49,12 +58,13 @@ class BaseModel(db.Model):
         Returns:
             List[Type[BaseModel]]: List of elements mapped from database table
         """
-        return session.query(cls_).all()
+        query = session.query(cls_)
+        return query, session.query(cls_).all()
     
     @classmethod
     def get_paginated(cls_, session: Session, page: int = 1, per_page: int = 10):
         page = page - 1
-        query = session.query(cls_).order_by(cls_.id.asc()).limit(per_page).offset(page*per_page)
+        query = session.query(cls_).order_by(cls_.id.desc()).limit(per_page).offset(page*per_page)
         return query.all()
     
     @classmethod
@@ -88,16 +98,15 @@ class BaseModel(db.Model):
         filter_dict = {
             column_name: value
         }
-        query = session.query(cls_).filter_by(**filter_dict).order_by(cls_.id.asc())
+        query = session.query(cls_).filter_by(**filter_dict).order_by(cls_.id.desc())
 
         if first:
-            return query.first()
+            return query, query.first()
 
         if paginated:
             page = page - 1
-            query = query.limit(per_page).offset(page*per_page)
-            return query.all()
-        return query.all()
+            return query, query.limit(per_page).offset(page*per_page).all()
+        return query, query.all()
     
     @classmethod
     def get_one(cls_, session: Session, column_name: str, value):
@@ -118,7 +127,7 @@ class BaseModel(db.Model):
         return session.query(cls_).filter_by(**filter_dict).first()
     
     @classmethod
-    def filters(cls_, session: Session, filters: List[dict], paginated: bool = False, page: int = 1, per_page: int = 10, first: bool = False):
+    def filters(cls_, session: Session, filters: List[dict], paginated: bool = False, page: int = 1, per_page: int = 10, first: bool = False, search_filters: dict = {}, search_method = 'AND'):
         """ Gets all rows that match with the multiple filters specified in dict (and logic)
 
         Args:
@@ -129,20 +138,34 @@ class BaseModel(db.Model):
             List[Type[BaseModel]]: List of elements that match with the multiple filters
         """
         query = session.query(cls_)
+        
+        search_query = None
+        first_run = True
+        for ksearch in search_filters:
+            if first_run:
+                search_query = cast(Column, ksearch['column']).ilike(ksearch['value'])
+                first_run = False
+            else:
+                if search_method == 'OR':
+                    search_query = or_(search_query, cast(Column, ksearch['column']).ilike(ksearch['value']))
+                else:
+                    search_query = and_(search_query, cast(Column, ksearch['column']).ilike(ksearch['value']))
+        
+        if search_query is not None:
+            query = query.filter(search_query)
 
         for filter in filters:
             query = query.filter_by(**filter)
         
-        query = query.order_by(cls_.id.asc())
+        query = query.order_by(cls_.id.desc())
 
         if first:
-            return query.first()
+            return query, query.first()
         
         if paginated:
             page = page - 1
-            query = query.limit(per_page).offset(page*per_page)
-            return query.all()
-        return query.all()
+            return query, query.limit(per_page).offset(page*per_page).all()
+        return query, query.all()
 
     def before_save(self, sesion: Session, *args, **kwargs):
         """ Method to execute before save a row in database (polimorfism)
@@ -279,6 +302,10 @@ class BaseModel(db.Model):
             List[str]: List of properties
         """
         return []
+    
+    def to_dict(self, jsonEncoder: JSONEncoder = AlchemyEncoder, circular: bool = True, encoder_extras: dict = {}) -> dict:
+        return json.loads(json.dumps(self, cls=jsonEncoder, check_circular=circular, **encoder_extras))
+
 
     def __repr__(self) -> str:
         """ Model representation
@@ -289,4 +316,5 @@ class BaseModel(db.Model):
         attr_array = [f"{attr}={self.__getattribute__(attr)}" for attr in self.attrs]
         args_format = ",".join(attr_array)
         return f"<{type(self).__name__}({args_format})>"
+
 
