@@ -7,9 +7,10 @@ from sqlalchemy.engine.base import Engine
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm.session import Session as ORMSession
 import Environment as env
+from ..config.database import config
 
 ## Database connection string
-connect_url = "sqlite:///app.db" if str(env.DB_ENGINE).startswith("sqlite") else f"{env.DB_ENGINE}://{env.DB_USER}:{env.DB_PWD}@{env.DB_HOST}:{env.DB_PORT}/{env.DB_NAME}?driver={env.DB_DRIVER}"
+connect_url = config[env.DB_DRIVER]['conn_string']
 db: SQLAlchemy = SQLAlchemy()
 
 
@@ -39,7 +40,7 @@ class AlchemyEncoder(json.JSONEncoder):
             for field in [x for x in obj.attrs]:
                 data = obj.__getattribute__(field)
                 try:
-                    if isinstance(data, (datetime.datetime, datetime.date)):
+                    if isinstance(data, (datetime.datetime, datetime.date, datetime.time)):
                         data = data.isoformat()
                     else:
                         json.dumps(data)
@@ -78,7 +79,7 @@ class AlchemyRelationEncoder(json.JSONEncoder):
             for field in attributes:
                 data = obj.__getattribute__(field)
                 try:
-                    if isinstance(data, (datetime.datetime, datetime.date)):
+                    if isinstance(data, (datetime.datetime, datetime.date, datetime.time)):
                         data = data.isoformat()
                     else:
                         json.dumps(data, cls=self.__class__, check_circular=self.check_circular, relationships=self.relationships)

@@ -1,11 +1,10 @@
 import os
 from typing import Any, List
 
-from .s3 import S3Storage
 from .local import LocalStorage
 
 class NotInListDiskException(Exception):
-    DISKS = ["local", "s3"]
+    DISKS = ["local"]
     def __init__(self, message: str=f"Notification disk not in list [{ ', '.join(DISKS) }]") -> None:
         self.message = message
         super().__init__(self.message)
@@ -16,8 +15,6 @@ class Storage:
         self.unit = unit
         if self.disk == "local":
             self.storageManager = LocalStorage()
-        elif self.disk == "s3":
-            self.storageManager = S3Storage(self.unit)
         else:
             raise NotInListDiskException()
     

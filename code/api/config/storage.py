@@ -8,9 +8,9 @@ config = {
     },
     's3': {
         "default": {
-            "aws_access_key": env.AWS_ACCESS_KEY,
-            "aws_secret_key": env.AWS_SECRET_KEY,
-            "bucket_name": env.BUCKET_NAME
+            #"aws_access_key": env.AWS_ACCESS_KEY,
+            #"aws_secret_key": env.AWS_SECRET_KEY,
+            #"bucket_name": env.BUCKET_NAME
         },
         "other_config": {
 

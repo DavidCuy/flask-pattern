@@ -63,17 +63,17 @@ def get_paginate_params(req: Request) -> Tuple[bool, int, int]:
         Tuple[bool, int, int]: Parametros de paginacion (Paginado, num de pagina, elementos por pagina)
     """
 
-    page = req.args.get('offset')
+    page = req.args.get('page')
     if page is not None:
         page = int(page)
     else:
         page = 1
 
-    per_page = req.args.get('limit')
+    per_page = req.args.get('per_page')
     if per_page is not None:
         per_page = int(per_page)
     else:
-        per_page = 100
+        per_page = 10
     
     return (page, per_page)
 
@@ -112,7 +112,7 @@ def get_relationship_params(req: Request) -> dict:
     
     ret_dict = {}
     if 'relationships' in req.args.keys():
-        ret_dict.update(dict(relationships=req.args['relationships']))
+        ret_dict.update(dict(relationships=req.args.getlist('relationships')))
     
     return ret_dict
  

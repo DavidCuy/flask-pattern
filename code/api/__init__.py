@@ -1,12 +1,11 @@
 import os
 
 from flask import Flask
-from flask_migrate import Migrate, migrate
+from flask_migrate import Migrate
 from flask_cors import CORS
 from flask.json import jsonify
 
 import api.database.DBConnection as DBConn
-from api.app.Data.Models.models import *
 from api.app.Exceptions.APIException import APIException
 
 
@@ -15,6 +14,7 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_pyfile(os.path.abspath('./Environment.py'))
     app.config['SQLALCHEMY_DATABASE_URI'] = DBConn.connect_url
+    app.config['MAX_CONTENT_LENGTH'] = 150 * 1000 * 1000
     migrate = Migrate(app, DBConn.db, render_as_batch=True)
 
     @migrate.configure
@@ -31,11 +31,11 @@ def create_app():
     except OSError:
         pass
 
-    from .routes.ExampleRouter import example
-    from .routes.DumpRouter import dump
+    from .routes import dump_router
+    from .routes import example_router
 
-    app.register_blueprint(example, url_prefix='/dev/api/v1/example')
-    app.register_blueprint(dump, url_prefix='/dev/api/v1/dump')
+    app.register_blueprint(dump_router, url_prefix='/dump')
+    app.register_blueprint(example_router, url_prefix='/router')
     
 
     @app.errorhandler(APIException)

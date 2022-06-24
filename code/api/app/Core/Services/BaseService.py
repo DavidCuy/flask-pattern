@@ -69,8 +69,12 @@ class BaseService:
         return cast(BaseModel, self.model).count_with_filters(session, filters)
     
     def insert_register(self, session: Session, input_data: dict):
-        obj = self.model(**input_data)
-        return cast(BaseModel, obj).save(session)
+        input_params = {}
+        for ipKey in input_data.keys():
+            if ipKey in self.get_display_members():
+                input_params[ipKey] = input_data[ipKey]
+        obj = self.model(**input_params)
+        return cast(BaseModel, obj).save(session, **input_data)
     
     def update_register(self, session: Session, id: int, update_data: dict):
         obj = self.get_one(session, id)
@@ -82,6 +86,9 @@ class BaseService:
     
     def get_rules_for_store(self):
         return cast(BaseModel, self.model).rules_for_store()
+    
+    def get_display_members(self) -> List[str]:
+        return cast(BaseModel, self.model).display_members()
 
     def get_filter_columns(self) -> List[str]:
         return cast(BaseModel, self.model).filter_columns

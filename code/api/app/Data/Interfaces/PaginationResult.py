@@ -5,7 +5,7 @@ from api.app.Core.Data.BaseModel import BaseModel
 from .ResourceReference import ResourceReference
 
 class PaginationResult:
-    def __init__(self, data: List[BaseModel], offset: int = 1, limit: int = 1, total: int = 1, prefix_model: str = "", sufix_model: str = "", refType: Type = BaseModel) -> None:
+    def __init__(self, data: List[BaseModel], offset: int = 1, limit: int = 1, total: int = 1, prefix_model: str = "", sufix_model: str = "", refType: Type = BaseModel, is_json_resp = True) -> None:
         if len(data) > 0:
             self.Data = data
             #self.Links = {
@@ -18,7 +18,8 @@ class PaginationResult:
                     type(data[0]),
                     prefix_model=prefix_model,
                     sufix_model=f"{'/' if sufix_model != '' else ''}{sufix_model}?page={offset}&per_page={limit}",
-                    action=request.method)
+                    action=request.method,
+                    is_json_resp=is_json_resp)
                     .to_dict()
             }
             self.Offset = offset
@@ -30,13 +31,15 @@ class PaginationResult:
                     refType,
                     prefix_model=prefix_model,
                     sufix_model=f"{'/' if sufix_model != '' else ''}{sufix_model}?page={offset+1}&per_page={limit}",
-                    action=request.method).to_dict()
+                    action=request.method,
+                    is_json_resp=is_json_resp).to_dict()
             if self.Offset > 1:
                 self.Links["prev"] = ResourceReference(
                     refType,
                     prefix_model=prefix_model,
                     sufix_model=f"{'/' if sufix_model != '' else ''}{sufix_model}?page={offset-1}&per_page={limit}",
-                    action=request.method).to_dict()
+                    action=request.method,
+                    is_json_resp=is_json_resp).to_dict()
         else:
             self.Data = []
             self.Links = None

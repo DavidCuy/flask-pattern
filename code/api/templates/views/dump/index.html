@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<pre>
+    {{ Data | tojson }}
+</pre>
+<pre>
+    {{ Links | tojson }}
+</pre>
+<pre>
+    {{ Offset }}
+</pre>
+<pre>
+    {{ Limit }}
+</pre>
+<pre>
+    {{ Total }}
+</pre>
+{% endblock body %}

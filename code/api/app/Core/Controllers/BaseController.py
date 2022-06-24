@@ -1,6 +1,6 @@
 import json
 from typing import cast
-from flask import request
+from flask import render_template, request
 import logging
 from api.app.Data.Enum.http_status_code import HTTPStatusCode
 
@@ -10,7 +10,6 @@ from api.app.Validators.RequestValidator import RequestValidator
 from ...Data.Interfaces.PaginationResult import PaginationResult
 from ..Data.BaseModel import BaseModel
 from ..Services.BaseService import BaseService
-from ...Midlewares.auth import auth_midleware
 from ....database.DBConnection import AlchemyEncoder, AlchemyRelationEncoder, get_session
 from ....utils.http_utils import build_response, get_paginate_params, get_filter_params, get_relationship_params, get_search_method_param, get_search_params
 
@@ -18,8 +17,7 @@ SUCCESS_STATUS = 200
 UNAUTHORIZED_STATUS = 401
 ERROR_STATUS = 400
 
-@auth_midleware
-def index(service):
+def index(service: BaseService):
     session = get_session()
     (page, per_page) = get_paginate_params(request)
     relationship_retrieve = get_relationship_params(request)
@@ -27,7 +25,7 @@ def index(service):
     filter_keys = filter_query.keys()
 
     search_query = get_search_params(request)
-    search_keys = cast(BaseService, service).get_search_columns()
+    search_keys = service.get_search_columns()
     search_columns = list(set(search_keys).intersection(search_query.keys()))
     filters_search = []
     for skey in search_columns:
@@ -52,8 +50,15 @@ def index(service):
         total_elements = cast(BaseService, service).count_with_query(query)
         
         encoder = AlchemyEncoder if 'relationships' not in relationship_retrieve else AlchemyRelationEncoder
-
-        body = PaginationResult(elements, page, per_page, total_elements, refType=cast(BaseService, service).model).to_dict()
+        
+        if 'accepts' in request.headers:
+            accepts = request.headers['accepts']
+            if accepts.lower() == 'application/json':
+                body = PaginationResult(elements, page, per_page, total_elements, refType=cast(BaseService, service).model).to_dict()
+            else:
+                body = PaginationResult(elements, page, per_page, total_elements, refType=cast(BaseService, service).model, is_json_resp=False).to_dict()
+        else:
+            body = PaginationResult(elements, page, per_page, total_elements, refType=cast(BaseService, service).model, is_json_resp=False).to_dict()
         body['Data'] = list(map(lambda d: dict(
                 **cast(BaseModel, d).to_dict(jsonEncoder=encoder, encoder_extras=relationship_retrieve)
             ), body['Data'])
@@ -72,10 +77,14 @@ def index(service):
     finally:
         session.close()
     
-    return build_response(status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve)
+    if 'accepts' in request.headers:
+        accepts = request.headers['accepts']
+        if accepts.lower() == 'application/json':
+            return build_response(status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve)
+    
+    return render_template(f'views/{service.model.model_path_name}/index.html', **body)
 
-@auth_midleware
-def find(service, id: int):
+def find(service: BaseService, id: int):
     session = get_session()
     relationship_retrieve = get_relationship_params(request)
     try:
@@ -95,7 +104,7 @@ def find(service, id: int):
         session.close()
     return build_response(status_code, body, jsonEncoder=AlchemyEncoder)
 
-def store(service):
+def store(service: BaseService):
     session = get_session()
     
     RequestValidator(session, cast(BaseService, service).get_rules_for_store()).validate()
@@ -119,7 +128,7 @@ def store(service):
     
     return build_response(status_code, response, is_body_str=True)
 
-def update(service, id: int):
+def update(service: BaseService, id: int):
     session = get_session()
 
     input_params = request.get_json()
@@ -140,7 +149,7 @@ def update(service, id: int):
         session.close()
     return build_response(status_code, response, is_body_str=True)
 
-def delete(service, id: int):
+def delete(service: BaseService, id: int):
     session = get_session()
 
     try:
