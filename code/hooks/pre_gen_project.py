@@ -25,7 +25,7 @@ elif db_dialect == "mssql":
             "_dbConn": "mssql+pyodbc://cookiecutter.db_user:cookiecutter.db_pass@cookiecutter.db_host/cookiecutter.db_name"
         }
     )}}"""
-else:
+elif db_dialect == "sqlite":
     """{{ cookiecutter.update({
             "_dbDriver": "sqlite",
             "_db_port": "",
