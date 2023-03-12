@@ -6,13 +6,13 @@
     "api_description": "API description",
     "api_url": "http://localhost:5000",
     "environment": "dev",
-    "_dbDialect": ["sqlite", "mssql", "mysql", "postgresql"],
-    "_dbDriver": "{% if cookiecutter._dbDialect == 'mysql' %}pymysql{% elif cookiecutter._dbDialect == 'posgresql' %}psycopg2{% elif cookiecutter._dbDialect == 'mssql' %}pyodbc{% else %}sqlite{% endif %}",
+    "dbDialect": ["sqlite", "mssql", "mysql", "postgresql"],
     "db_host": "localhost",
     "db_user": "",
     "db_pass": "",
     "db_name": "",
     "db_schema": "",
-    "db_port": "{% if cookiecutter._dbDialect == 'mysql' %}3306{% elif cookiecutter._dbDialect == 'posgresql' %}5432{% elif cookiecutter._dbDialect == 'mssql' %}1433{% endif %}",
+    "_dbDriver": "{% if cookiecutter._dbDialect == 'mysql' %}pymysql{% elif cookiecutter._dbDialect == 'posgresql' %}psycopg2{% elif cookiecutter._dbDialect == 'mssql' %}pyodbc{% else %}sqlite{% endif %}",
+    "_db_port": "{% if cookiecutter._dbDialect == 'mysql' %}3306{% elif cookiecutter._dbDialect == 'posgresql' %}5432{% elif cookiecutter._dbDialect == 'mssql' %}1433{% endif %}",
     "_dbConn": "{% if cookiecutter._dbDialect == 'sqlite' %}sqlite:///app.db{% else %}{{ cookiecutter._dbDialect }}+{{ cookiecutter._dbDriver }}://{{ cookiecutter.db_user }}:{{ cookiecutter.db_pass }}@{{ cookiecutter.db_host }}/{{ cookiecutter.db_name }}{% endif %}"
 }
