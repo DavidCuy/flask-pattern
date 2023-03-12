@@ -1,25 +1,24 @@
 # Flask Pattern
 
-For use this template you need to instatll cookiecutter package. To achieve this, execute the following commands in a terminal:
+Para utilizar este template, se necesitat install el paquetet cookiecutter. Para lograrlo ejecute los siguientes comandos en una terminal:
 
 ````shell
 pip install virtualenv
 ````
 
-and
+y
 
 ````shell
 pip install cookiecutter
 ````
 
-When the package already installed in your system, execute the following command:
+Cuando el paquete se haya instalado correctamente en tu equipo, ejecute el siguiente comando:
 
 ````shell
 cookiecutter https://github.com/DavidCuy/flask-pattern --directory code
 ````
 
-
-With this you'll have a basic project and for finish run the next inside the project:
+Con esto, tendrá un proyecto básico de flask con ciertos patrones implementados, para finalizar ejecute lo siguiente en la carpeta que se genenre del proyecto
 ````shell
 python -m venv venv
 pip install -r requirements.txt
