@@ -1,36 +1,31 @@
 import sys
+import json
 
-if "{{ cookiecutter.dbDialect }}" == "sqlite":
-    """{{ cookiecutter.update(
-        {
-            "_dbDriver": "sqlite",
-            "_db_port": "",
-            "_dbConn": "sqlite:///app.db"
-        }
-    )}}"""
-elif "{{ cookiecutter.dbDialect }}" == "mysql":
-    """{{ cookiecutter.update(
-        {
-            "_dbDriver": "pymysql",
-            "_db_port": "3306",
-            "_dbConn": "mysql+pymysql://{{ cookiecutter.db_user }}:{{ cookiecutter.db_pass }}@{{ cookiecutter.db_host }}/{{ cookiecutter.db_name }}"
-        }
-    )}}"""
-elif "{{ cookiecutter.dbDialect }}" == "posgresql":
-    """{{ cookiecutter.update(
-        {
-            "_dbDriver": "psycopg2",
-            "_db_port": "5432",
-            "_dbConn": "posgresql+psycopg2://{{ cookiecutter.db_user }}:{{ cookiecutter.db_pass }}@{{ cookiecutter.db_host }}/{{ cookiecutter.db_name }}"
-        }
-    )}}"""
-elif "{{ cookiecutter.dbDialect }}" == "mssql":
-    """{{ cookiecutter.update(
-        {
-            "_dbDriver": "pyodbc",
-            "_db_port": "1433",
-            "_dbConn": "mssql+pyodbc://{{ cookiecutter.db_user }}:{{ cookiecutter.db_pass }}@{{ cookiecutter.db_host }}/{{ cookiecutter.db_name }}"
-        }
-    )}}"""
+db_dialect = "{{ cookiecutter.dbDialect }}"
+db_user = "{{ cookiecutter.db_user }}"
+db_pass = "{{ cookiecutter.db_pass }}"
+db_host = "{{ cookiecutter.db_host }}"
+db_name = "{{ cookiecutter.db_name }}"
+db_driver = "sqlite"
+db_port = ""
+
+if db_dialect == "mysql":
+    db_driver = "pymysql"
+    db_port = "3306"
+elif db_dialect == "posgresql":
+    db_driver = "psycopg2"
+    db_port = "5432"
+elif db_dialect == "mssql":
+    db_driver = "pyodbc"
+    db_port = "1433"
+
+cookiecutter_update = json.dumps({
+    "_dbDriver": db_driver,
+    "_db_port": db_port,
+    "_dbConn": f"{db_driver}:///app.db" if db_dialect is "sqlite" else f"{db_dialect}+{db_driver}://{db_user}:{db_pass}@{db_host}/{db_name}"
+}, indent=2)
+print(cookiecutter_update)
+
+f"""{{{{ cookiecutter.update({cookiecutter_update})}}}}"""
 
 sys.exit(0)
