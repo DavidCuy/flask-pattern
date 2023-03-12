@@ -1,7 +1,8 @@
 import sys
 
 db_dialect = "{{ cookiecutter.dbDialect }}"
-print(db_dialect)
+print(f"--{db_dialect}--")
+print(db_dialect == "mysql")
 
 if db_dialect == "mysql":
     """{{ cookiecutter.update({
