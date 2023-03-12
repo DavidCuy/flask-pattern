@@ -2,7 +2,7 @@ import os
 import sys
 
 REMOVE_PATHS = [
-    '{% if cookiecutter._dbDialect != "mssql" %} odbcinst.ini {% endif %}',
+    '{% if cookiecutter.dbDialect != "mssql" %} odbcinst.ini {% endif %}',
 ]
 
 for path in REMOVE_PATHS:
