@@ -26,8 +26,7 @@ cookiecutter_update = f"""##start##start cookiecutter.update(##start
     "_dbConn": "{db_conn}"
 ##end) ##end##end""".replace("##start", "{").replace("##end", "}")
 
-print(cookiecutter_update)
 
-f"""{cookiecutter_update}"""
+f"""{{ {cookiecutter_update} }}"""
 
 sys.exit(0)
