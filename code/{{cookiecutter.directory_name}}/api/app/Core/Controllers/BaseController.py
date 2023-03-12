@@ -1,6 +1,6 @@
 import json
 from typing import cast
-from flask import render_template, request
+from flask import request
 import logging
 from api.app.Data.Enum.http_status_code import HTTPStatusCode
 
@@ -77,12 +77,7 @@ def index(service: BaseService):
     finally:
         session.close()
     
-    if 'accepts' in request.headers:
-        accepts = request.headers['accepts']
-        if accepts.lower() == 'application/json':
-            return build_response(status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve)
-    
-    return render_template(f'views/{service.model.model_path_name}/index.html', **body)
+    return build_response(status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve)
 
 def find(service: BaseService, id: int):
     session = get_session()
