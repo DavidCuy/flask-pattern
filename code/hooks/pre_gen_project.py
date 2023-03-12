@@ -19,7 +19,7 @@ elif db_dialect == "mssql":
     db_driver = "pyodbc"
     db_port = "1433"
 
-db_conn = f"{db_driver}:///app.db" if db_dialect is "sqlite" else f"{db_dialect}+{db_driver}://{db_user}:{db_pass}@{db_host}/{db_name}"
+db_conn = f"{db_driver}:///app.db" if db_dialect == "sqlite" else f"{db_dialect}+{db_driver}://{db_user}:{db_pass}@{db_host}/{db_name}"
 print(db_conn)
 
 """{{ cookiecutter.update(
