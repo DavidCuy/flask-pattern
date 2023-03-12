@@ -23,9 +23,9 @@ db_conn = f"{db_driver}:///app.db" if db_dialect is "sqlite" else f"{db_dialect}
 
 
 f"""{{{{ cookiecutter.update({{
-        "_dbDriver": {db_driver},
-        "_db_port": {db_port},
-        "_dbConn": {db_conn}
+        "_dbDriver": "{db_driver}",
+        "_db_port": "{db_port}",
+        "_dbConn": "{db_conn}"
     }})
 }}}}"""
 
