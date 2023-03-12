@@ -22,11 +22,12 @@ elif db_dialect == "mssql":
 db_conn = f"{db_driver}:///app.db" if db_dialect is "sqlite" else f"{db_dialect}+{db_driver}://{db_user}:{db_pass}@{db_host}/{db_name}"
 print(db_conn)
 
-f"""{{{{ cookiecutter.update({{
-        "_dbDriver": "{db_driver}",
-        "_db_port": "{db_port}",
-        "_dbConn": "{db_conn}"
-    }})
-}}}}"""
+"""{{ cookiecutter.update(
+    {
+        "_dbDriver": "{0}",
+        "_db_port": "{1}",
+        "_dbConn": "{2}"
+    }
+)}}""".format(db_driver, db_port, db_conn)
 
 sys.exit(0)
