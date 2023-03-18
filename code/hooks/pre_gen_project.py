@@ -11,6 +11,7 @@ if db_dialect == "mysql":
             "_dbConn": "mysql+pymysql://cookiecutter.db_user:cookiecutter.db_pass@cookiecutter.db_host/cookiecutter.db_name"
         }
     )}}"""
+    sys.exit(0)
 elif db_dialect == "posgresql":
     """{{ cookiecutter.update({
             "_dbDriver": "psycopg2",
@@ -18,6 +19,7 @@ elif db_dialect == "posgresql":
             "_dbConn": "posgresql+psycopg2://cookiecutter.db_user:cookiecutter.db_pass@cookiecutter.db_host/cookiecutter.db_name"
         }
     )}}"""
+    sys.exit(0)
 elif db_dialect == "mssql":
     """{{ cookiecutter.update({
             "_dbDriver": "pyodbc",
@@ -25,6 +27,7 @@ elif db_dialect == "mssql":
             "_dbConn": "mssql+pyodbc://cookiecutter.db_user:cookiecutter.db_pass@cookiecutter.db_host/cookiecutter.db_name"
         }
     )}}"""
+    sys.exit(0)
 elif db_dialect == "sqlite":
     """{{ cookiecutter.update({
             "_dbDriver": "sqlite",
@@ -32,5 +35,4 @@ elif db_dialect == "sqlite":
             "_dbConn": "sqlite:///app.db"
         }
     )}}"""
-
-sys.exit(0)
+    sys.exit(0)
