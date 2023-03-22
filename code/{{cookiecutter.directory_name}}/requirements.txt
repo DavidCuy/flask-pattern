@@ -20,7 +20,7 @@ zipp==3.8.0
 requests==2.26.0
 {% if cookiecutter.dbDialect == "mysql" %}
 pymysql
-{% elif cookiecutter.dbDialect == "posgresql"  %}
+{% elif cookiecutter.dbDialect == "postgresql"  %}
 psycopg2
 {% elif cookiecutter.dbDialect == "mssql"  %}
 pyodbc
