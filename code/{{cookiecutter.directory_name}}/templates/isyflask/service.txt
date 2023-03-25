@@ -1,7 +1,7 @@
 from api.app.Core.Services.BaseService import BaseService
-from api.app.Data.Models import {{model_name}}
+from api.app.Data.Models import [[model_name]]
 
 
-class {{model_name}}Service(BaseService):
+class [[model_name]]Service(BaseService):
     def __init__(self) -> None:
-        super().__init__({{model_name}})
+        super().__init__([[model_name]])
