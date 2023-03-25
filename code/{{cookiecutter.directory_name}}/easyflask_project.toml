@@ -9,6 +9,7 @@ controller = "templates/isyflask/controller.txt"
 endpoint = "templates/isyflask/routes.txt"
 
 [easyflask.project.folders]
+root = "api"
 models = "api/app/Data/Models"
 services = "api/app/Services"
 controllers = "api/app/Controllers"
