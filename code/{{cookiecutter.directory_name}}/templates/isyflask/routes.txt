@@ -5,8 +5,8 @@ from api.app.Services.{model_name}Service import {model_name}Service
 {model_name_lower}_router = Blueprint('{model_name_lower}', __name__)
 {model_name_lower}_service = {model_name}Service()
 
-{model_name_lower}_router.route('/', methods=['GET'], defaults={'service': {model_name_lower}_service}) (index)
-{model_name_lower}_router.route('/', methods=['POST'], defaults={'service': {model_name_lower}_service}) (store)
-{model_name_lower}_router.route('/<id>', methods=['GET'], defaults={'service': {model_name_lower}_service}) (find)
-{model_name_lower}_router.route('/<id>', methods=['PUT'], defaults={'service': {model_name_lower}_service}) (update)
-{model_name_lower}_router.route('/<id>', methods=['DELETE'], defaults={'service': {model_name_lower}_service}) (delete)
+{model_name_lower}_router.route('/', methods=['GET'], defaults={{'service': {model_name_lower}_service}}) (index)
+{model_name_lower}_router.route('/', methods=['POST'], defaults={{'service': {model_name_lower}_service}}) (store)
+{model_name_lower}_router.route('/<id>', methods=['GET'], defaults={{'service': {model_name_lower}_service}}) (find)
+{model_name_lower}_router.route('/<id>', methods=['PUT'], defaults={{'service': {model_name_lower}_service}}) (update)
+{model_name_lower}_router.route('/<id>', methods=['DELETE'], defaults={{'service': {model_name_lower}_service}}) (delete)

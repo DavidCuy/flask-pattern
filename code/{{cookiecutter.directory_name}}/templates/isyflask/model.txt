@@ -17,9 +17,9 @@ class {model_name}(BaseModel):
     model_path_name = "{model_name_lower}"
     
     def property_map(self) -> Dict:
-        return {
+        return {{
             "id": "Id{model_name}"
-        }
+        }}
     
     def display_members(self) -> List[str]:
         return [
@@ -28,6 +28,6 @@ class {model_name}(BaseModel):
     
     @classmethod
     def rules_for_store(cls_) -> Dict[str, List[Any]]:
-        return {
+        return {{
             
-        }
+        }}
