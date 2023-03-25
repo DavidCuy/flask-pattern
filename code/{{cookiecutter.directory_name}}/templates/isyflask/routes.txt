@@ -1,0 +1,12 @@
+from flask import Blueprint
+from api.app.Controllers.{{model_name}}Controller import index, find, store, update, delete
+from api.app.Services.{{model_name}}Service import {{model_name}}Service
+
+{{model_name.lower()}}_router = Blueprint('{{model_name.lower()}}', __name__)
+{{model_name.lower()}}_service = {{model_name}}Service()
+
+{{model_name.lower()}}_router.route('/', methods=['GET'], defaults={'service': {{model_name.lower()}}_service}) (index)
+{{model_name.lower()}}_router.route('/', methods=['POST'], defaults={'service': {{model_name.lower()}}_service}) (store)
+{{model_name.lower()}}_router.route('/<id>', methods=['GET'], defaults={'service': {{model_name.lower()}}_service}) (find)
+{{model_name.lower()}}_router.route('/<id>', methods=['PUT'], defaults={'service': {{model_name.lower()}}_service}) (update)
+{{model_name.lower()}}_router.route('/<id>', methods=['DELETE'], defaults={'service': {{model_name.lower()}}_service}) (delete)
