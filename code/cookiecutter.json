@@ -16,6 +16,6 @@
     "_db_port": "",
     "_dbConn": "",
     "_copy_without_render": [
-        "*/templates/isyflask/*.txt"
+        "*/isyflask/*.txt"
     ]
 }
