@@ -14,5 +14,8 @@
     "db_schema": "",
     "_dbDriver": "",
     "_db_port": "",
-    "_dbConn": ""
+    "_dbConn": "",
+    "_copy_without_render": [
+        "*/templates/isyflask/*.txt"
+    ]
 }
