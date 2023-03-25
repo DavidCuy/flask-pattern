@@ -1,5 +1,5 @@
 from api.app.Core.Services.BaseService import BaseService
-from api.app.Data.Models.models import Dump
+from api.app.Data.Models import Dump
 
 
 class DumpService(BaseService):
