@@ -2,23 +2,23 @@ from typing import Any, Dict, List
 from sqlalchemy import Column, Integer, String
 from ...Core.Data.BaseModel import BaseModel
 
-class [[model_name]](BaseModel):
-    """ Table [[model_name]]s Database model
+class {model_name}(BaseModel):
+    """ Table {model_name}s Database model
 
     Args:
         BaseModel (ORMClass): Parent class
 
     Returns:
-        [[model_name]]: Instance of model
+        {model_name}: Instance of model
     """
-    __tablename__ = '[[model_name]]s'
-    id = Column("Id[[model_name]]", Integer, primary_key=True)
+    __tablename__ = '{model_name}s'
+    id = Column("Id{model_name}", Integer, primary_key=True)
     
-    model_path_name = "[[model_name.lower()]]"
+    model_path_name = "{model_name_lower}"
     
     def property_map(self) -> Dict:
         return {
-            "id": "Id[[model_name]]"
+            "id": "Id{model_name}"
         }
     
     def display_members(self) -> List[str]:
