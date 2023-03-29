@@ -31,11 +31,9 @@ def create_app():
     except OSError:
         pass
 
-    from .routes import dump_router
     from .routes import example_router
     #replace this for add routes <-- NOT REMOVE THE COMMENT
 
-    app.register_blueprint(dump_router, url_prefix='/dump')
     app.register_blueprint(example_router, url_prefix='/router')
     #replace this for add blueprint <-- NOT REMOVE THE COMMENT
     
