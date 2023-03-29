@@ -13,6 +13,8 @@
     "db_name": "",
     "db_schema": "",
     "_dbDriver": "",
+    "docker_local_db_enable": false,
+    "repostory_provider": null,
     "_db_port": "",
     "_dbConn": "",
     "_copy_without_render": [
