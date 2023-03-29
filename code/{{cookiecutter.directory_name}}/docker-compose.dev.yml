@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  flask-pattern:
-    image: flask-pattern
-    container_name: flask-pattern
+  {{ cookiecutter.project_name }}:
+    image: {{ cookiecutter.project_name }}
+    container_name: {{ cookiecutter.project_name }}
     env_file: '.env'
     environment:
       PYTHONUNBUFFERED: 1
