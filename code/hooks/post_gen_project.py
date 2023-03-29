@@ -1,10 +1,10 @@
 import os
 import sys
 
-PROJECT_DIR = './' + '{{ cookiecutter.repository }}'
-
+PROJECT_DIR = os.path.join(os.path.curdir)
+print('{{ cookiecutter.dbDialect }}')
 REMOVE_PATHS = [
-    {% if cookiecutter.dbDialect != "mssql" %} PROJECT_DIR + '/odbcinst.ini', {% endif %}
+    {% if cookiecutter.dbDialect != "mssql" %} os.path.join(PROJECT_DIR, 'odbcinst.ini'), {% endif %}
 ]
 
 for path in REMOVE_PATHS:
@@ -29,8 +29,8 @@ DB_PORT="<DB PORT>"
 DB_CONNECTION_STRING="<DB CONNECTION STRING>"
 """
 
-os.rename(PROJECT_DIR + '/.env.dist', PROJECT_DIR + '/.env')
+os.rename(os.path.join(PROJECT_DIR, '.env.dist'), os.path.join(PROJECT_DIR, '.env'))
 
-with open(PROJECT_DIR + '/.env.dist', 'w+') as f:
+with open(os.path.join(PROJECT_DIR, '.env.dist'), 'w+') as f:
     f.write(env_body)
 
