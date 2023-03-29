@@ -2,7 +2,6 @@ import os
 import sys
 
 PROJECT_DIR = os.path.join(os.path.curdir)
-print('{{ cookiecutter.dbDialect }}')
 REMOVE_PATHS = [
     {% if cookiecutter.dbDialect != "mssql" %} os.path.join(PROJECT_DIR, 'odbcinst.ini'), {% endif %}
 ]
