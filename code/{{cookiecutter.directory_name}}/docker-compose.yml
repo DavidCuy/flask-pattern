@@ -6,7 +6,7 @@ services:
     container_name: {{ cookiecutter.project_name }}
     {% if cookiecutter.docker_local_db_enable %}
     depends_on: 
-      {{cookiecutter.dbDialect}}_localdb
+      {{cookiecutter.dbDialect}}_localdb:
         condition: service_healthy
     {% endif %}
     env_file: '.env'
