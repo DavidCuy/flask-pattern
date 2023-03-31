@@ -14,4 +14,28 @@ services:
       - 5000:5000
     volumes: 
       - '.:/code'
+  {% if cookiecutter.docker_local_db_enable %}
+  {% if cookiecutter.dbDialect == "mysql" %}
+  mysql_localdb:
+    image: mysql:8.0
+    container_name: mysql_localdb
+    env_file: '.env'
+    ports:
+      - 3306:3306
+  {% elif cookiecutter.dbDialect == "postgresql"  %}
+  postgres_localdb:
+    image: postgres:15.2
+    container_name: postgres_localdb
+    env_file: '.env'
+    ports:
+      - 5432:5432
+  {% elif cookiecutter.dbDialect == "mssql"  %}
+  mssql_localdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_localdb
+    env_file: '.env'
+    ports:
+      - 1433:1433
+  {% endif %}
+  {% endif %}
 
