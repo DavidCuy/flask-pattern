@@ -4,6 +4,10 @@ services:
   {{ cookiecutter.project_name }}:
     image: {{ cookiecutter.project_name }}
     container_name: {{ cookiecutter.project_name }}
+    {% if cookiecutter.docker_local_db_enable %}
+    depends_on: 
+      - {{cookiecutter.dbDialect}}_localdb
+    {% endif %}
     env_file: '.env'
     environment:
       PYTHONUNBUFFERED: 1
@@ -23,9 +27,9 @@ services:
     ports:
       - 3306:3306
   {% elif cookiecutter.dbDialect == "postgresql"  %}
-  postgres_localdb:
+  postgresql_localdb:
     image: postgres:15.2
-    container_name: postgres_localdb
+    container_name: postgresql_localdb
     env_file: '.env'
     ports:
       - 5432:5432
