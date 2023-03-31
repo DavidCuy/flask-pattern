@@ -33,3 +33,8 @@ os.rename(os.path.join(PROJECT_DIR, '.env.dist'), os.path.join(PROJECT_DIR, '.en
 with open(os.path.join(PROJECT_DIR, '.env.dist'), 'w+') as f:
     f.write(env_body)
 
+
+with open(os.path.join(PROJECT_DIR, 'entrypoint.sh'), 'w+') as f:
+    file_content = f.read()
+    f.write(file_content.replace('\r', ''))
+
