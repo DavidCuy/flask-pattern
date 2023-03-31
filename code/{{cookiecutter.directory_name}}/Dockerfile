@@ -37,4 +37,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 RUN chmod u+x ./entrypoint.sh
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["bash", "./entrypoint.sh"]
