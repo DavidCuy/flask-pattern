@@ -39,6 +39,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN sed 's/\r$//' entrypoint.sh > entrypoint.sh
-
 ENTRYPOINT ["bash", "./entrypoint.sh"]
