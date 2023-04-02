@@ -29,7 +29,7 @@ services:
       - 3306:3306
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 10s
+      timeout: 5s
       retries: 10
   {% elif cookiecutter.dbDialect == "postgresql"  %}
   postgresql_localdb:
@@ -40,7 +40,7 @@ services:
       - 5432:5432
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
-      timeout: 10s
+      timeout: 5s
       retries: 10
   {% elif cookiecutter.dbDialect == "mssql"  %}
   mssql_localdb:
@@ -49,6 +49,10 @@ services:
     env_file: '.env'
     ports:
       - 1433:1433
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd -S localhost -U ${DB_USER} -P ${DB_PASSWORD} -Q 'Select 1'"]
+      timeout: 5s
+      retries: 10
   {% endif %}
   {% endif %}
 
