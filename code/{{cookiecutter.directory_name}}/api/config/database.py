@@ -1,7 +1,7 @@
 import Environment as env
 
 config = {
-    '{{cookiecutter._driver}}': {
+    '{{cookiecutter._dbDriver}}': {
         'conn_string': env.DB_CONNECTION_STRING
     }
 }
