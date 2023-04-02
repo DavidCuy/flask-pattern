@@ -19,6 +19,9 @@ Setup = /usr/lib/x86_64-linux-gnu/odbc/libtdsS.so" >> /etc/odbcinst.ini
 
 # install pyodbc (and, optionally, sqlalchemy)
 RUN pip install --trusted-host pypi.python.org pyodbc==4.0.26 sqlalchemy==1.3.5
+{% elif cookiecutter.dbDialect == "postgresql" %}
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc
 {% endif %}
 
 # set the working directory in the container

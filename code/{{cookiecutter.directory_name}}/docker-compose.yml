@@ -33,11 +33,15 @@ services:
       retries: 10
   {% elif cookiecutter.dbDialect == "postgresql"  %}
   postgresql_localdb:
-    image: postgres:15.2
+    image: postgres:11.6
     container_name: postgresql_localdb
     env_file: '.env'
     ports:
       - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      timeout: 10s
+      retries: 10
   {% elif cookiecutter.dbDialect == "mssql"  %}
   mssql_localdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
