@@ -20,4 +20,4 @@ zipp==3.8.0
 requests==2.26.0
 cryptography==40.0.1
 isyflask-cli==0.1.4
-{{ cookiecutter._driver }}
+{{ cookiecutter._dbDriver }}
