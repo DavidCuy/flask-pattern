@@ -4,7 +4,7 @@ services:
   {{ cookiecutter.project_name }}:
     image: {{ cookiecutter.project_name }}
     container_name: {{ cookiecutter.project_name }}
-    {% if cookiecutter.docker_local_db_enable %}
+    {% if cookiecutter.docker_local_db_enable and cookiecutter.dbDialect != "sqlite" %}
     depends_on: 
       {{cookiecutter.dbDialect}}_localdb:
         condition: service_healthy
