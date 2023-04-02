@@ -19,7 +19,7 @@ Werkzeug==2.1.2
 zipp==3.8.0
 requests==2.26.0
 cryptography==40.0.1
-isyflask-cli==0.1.4
+isyflask-cli==0.1.5
 {% if cookiecutter.dbDialect != "sqlite" %}
 {{ cookiecutter._dbDriver }}
 {% endif %}
