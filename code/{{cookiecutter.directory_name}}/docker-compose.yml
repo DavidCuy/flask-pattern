@@ -44,9 +44,15 @@ services:
       retries: 10
   {% elif cookiecutter.dbDialect == "mssql"  %}
   mssql_localdb:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: custom-mssql
     container_name: mssql_localdb
     env_file: '.env'
+    build:
+      context: .
+      args:
+       - DB_USER=${DB_USER}
+       - DB_PASS=${SA_PASSWORD}
+      dockerfile: Dockerfile.mssql
     ports:
       - 1433:1433
     healthcheck:

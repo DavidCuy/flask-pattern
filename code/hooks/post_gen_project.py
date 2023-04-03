@@ -3,7 +3,11 @@ import sys
 
 PROJECT_DIR = os.path.join(os.path.curdir)
 REMOVE_PATHS = [
-    {% if cookiecutter.dbDialect != "mssql" %} os.path.join(PROJECT_DIR, 'odbcinst.ini'), {% endif %}
+    {% if cookiecutter.dbDialect != "mssql" %}
+    os.path.join(PROJECT_DIR, 'odbcinst.ini'),
+    os.path.join(PROJECT_DIR, 'create-mssql-database.sql'),
+    os.path.join(PROJECT_DIR, 'Dockerfile.mssql'),
+    {% endif %}
 ]
 
 for path in REMOVE_PATHS:

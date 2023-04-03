@@ -19,6 +19,7 @@
     "_db_port": "",
     "_dbConn": "",
     "_copy_without_render": [
-        "*/isyflask/*.txt"
+        "*/isyflask/*.txt",
+        "Dockerfile.mssql"
     ]
 }

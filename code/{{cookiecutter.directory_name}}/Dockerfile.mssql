@@ -1,0 +1,12 @@
+FROM mcr.microsoft.com/mssql/server:2017-latest
+
+ARG DB_USER
+ARG DB_PASS
+
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=${DB_PASS}
+ENV MSSQL_PID=Developer
+ENV MSSQL_TCP_PORT=1433
+WORKDIR /src
+COPY create-mssql-database.sql ./create-mssql-database.sql
+RUN (/opt/mssql/bin/sqlservr --accept-eula & ) | grep -q "Service Broker manager has started" &&  /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U ${DB_USER} -P ${DB_PASS} -i create-mssql-database.sql
