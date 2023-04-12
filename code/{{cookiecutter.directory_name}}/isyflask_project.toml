@@ -1,14 +1,14 @@
-[easyflask.project.definition]
+[isyflask.project.definition]
 name = "{{ cookiecutter.project_name }}"
 description = ""
 
-[easyflask.template.files]
+[isyflask.template.files]
 model = "templates/isyflask/model.txt"
 service = "templates/isyflask/service.txt"
 controller = "templates/isyflask/controller.txt"
 endpoint = "templates/isyflask/routes.txt"
 
-[easyflask.project.folders]
+[isyflask.project.folders]
 root = "api"
 models = "api/app/Data/Models"
 services = "api/app/Services"
