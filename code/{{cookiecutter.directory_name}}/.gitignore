@@ -146,7 +146,7 @@ prod/
 dev/
 *.env
 
-*.vscode
+
 keys/*
 !keys/.gitkeep
 
