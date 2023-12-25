@@ -36,7 +36,7 @@ class AlchemyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj.__class__, DeclarativeMeta):
             fields = {}
-            property_map = obj.property_map()
+            prop_map_obj = obj.__class__.property_map()
             for field in [x for x in obj.attrs]:
                 data = obj.__getattribute__(field)
                 try:
@@ -44,7 +44,7 @@ class AlchemyEncoder(json.JSONEncoder):
                         data = data.isoformat()
                     else:
                         json.dumps(data)
-                    fields[property_map[field] if field in property_map else field] = data
+                    fields[prop_map_obj[field] if field in prop_map_obj else field] = data
                 except TypeError:
                     fields[field] = None
             return fields
@@ -67,7 +67,7 @@ class AlchemyRelationEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj.__class__, DeclarativeMeta):
             fields = {}
-            property_map = obj.property_map()
+            prop_map_obj = obj.__class__.property_map()
             
             relation_names = [attr for attr, relation in obj.__mapper__.relationships.items()]
             filters_model = list(set(self.relationships).intersection(relation_names))
@@ -83,7 +83,7 @@ class AlchemyRelationEncoder(json.JSONEncoder):
                         data = data.isoformat()
                     else:
                         json.dumps(data, cls=self.__class__, check_circular=self.check_circular, relationships=self.relationships)
-                    fields[property_map[field] if field in property_map else field] = data
+                    fields[prop_map_obj[field] if field in prop_map_obj else field] = data
                 except TypeError as e:
                     fields[field] = None
             return fields

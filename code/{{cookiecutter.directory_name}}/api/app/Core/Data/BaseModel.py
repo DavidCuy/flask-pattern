@@ -44,7 +44,7 @@ class BaseModel(db.Model):
             List[str]: Attributes
         """
         preliminar = list(filter(lambda prop: not str(prop).startswith('_'), type(self).__dict__.keys()))
-        display_member = self.display_members()
+        display_member = self.__class__.display_members()
         return list(set(preliminar) & set(display_member)) if len(display_member) > 0 else display_member
 
     @classmethod
@@ -217,7 +217,7 @@ class BaseModel(db.Model):
             object (dict): Dictionary with only the field to update
         """
         self.before_update(session, *args, **kwargs, **object)
-        keys = self.get_keys()
+        keys = self.__class__.get_keys()
         for key in keys:
             if key in object:
                 self.__setattr__(key, object[key])
@@ -299,7 +299,8 @@ class BaseModel(db.Model):
         """
         return {}
     
-    def property_map(self) -> Dict[str, str]:
+    @classmethod
+    def property_map(cls_) -> Dict[str, str]:
         """Remap property with display value
 
         Returns:

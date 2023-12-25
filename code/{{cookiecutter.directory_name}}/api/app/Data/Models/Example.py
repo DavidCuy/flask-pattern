@@ -26,12 +26,14 @@ class Example(BaseModel):
     # This model path is used to know which path will raise the event
     model_path_name = "example"
     
-    def property_map(self) -> Dict:
+    @classmethod
+    def property_map(cls_) -> Dict:
         return {
             "id": "IdExample"
         }
     
-    def display_members(self) -> List[str]:
+    @classmethod
+    def display_members(cls_) -> List[str]:
         return [
             "id", "Description"
         ]
