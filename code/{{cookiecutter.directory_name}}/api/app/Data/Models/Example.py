@@ -21,7 +21,6 @@ class Example(BaseModel):
     filter_columns = []
     relationship_names = []
     search_columns = ['Description']
-    signed_urls = []
     
     # This model path is used to know which path will raise the event
     model_path_name = "example"
