@@ -30,12 +30,6 @@ def create_app():
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    from .routes import example_router
-    #replace this for add routes <-- NOT REMOVE THE COMMENT
-
-    app.register_blueprint(example_router, url_prefix='/example')
-    #replace this for add blueprint <-- NOT REMOVE THE COMMENT
     
 
     @app.errorhandler(APIException)
