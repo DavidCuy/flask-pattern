@@ -30,7 +30,6 @@ def create_app():
         os.makedirs(app.instance_path)
     except OSError:
         pass
-    
 
     @app.errorhandler(APIException)
     def handle_invalid_usage(error: APIException):
