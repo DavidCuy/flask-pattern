@@ -13,10 +13,6 @@ from ..Services.BaseService import BaseService
 from ....database.DBConnection import AlchemyEncoder, AlchemyRelationEncoder, get_session
 from ....utils.http_utils import build_response, get_paginate_params, get_filter_params, get_relationship_params, get_search_method_param, get_search_params
 
-SUCCESS_STATUS = 200
-UNAUTHORIZED_STATUS = 401
-ERROR_STATUS = 400
-
 def index(service: BaseService):
     session = get_session()
     (page, per_page) = get_paginate_params(request)
@@ -149,7 +145,7 @@ def delete(service: BaseService, id: int):
 
     try:
         body = cast(BaseService, service).delete_register(session, id)
-        status_code = HTTPStatusCode.OK.value
+        status_code = HTTPStatusCode.NO_CONTENT.value
     except APIException as e:
         logging.exception("APIException occurred")
         body = e.to_dict()
