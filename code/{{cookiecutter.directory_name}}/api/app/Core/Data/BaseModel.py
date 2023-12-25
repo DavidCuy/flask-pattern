@@ -33,9 +33,6 @@ class BaseModel(db.Model):
     relationship_names = []
     search_columns = []
 
-    # for this project
-    signed_urls = []
-
     @property
     def attrs(self) -> List[str]:
         """ Returns a list of the attributes of an object
