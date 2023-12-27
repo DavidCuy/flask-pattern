@@ -11,7 +11,7 @@ class {model_name}(BaseModel):
     Returns:
         {model_name}: Instance of model
     """
-    __tablename__ = '{model_name}s'
+    __tablename__ = '{table_name}'
     id = Column("Id{model_name}", Integer, primary_key=True)
     
     model_path_name = "{model_name_lower}"
