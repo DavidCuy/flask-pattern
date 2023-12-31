@@ -45,11 +45,18 @@ source venv/bin/activate
 
 Una vez en nuestro ambiente virtual configuramos nunestras variables de entorno de la aplicación de acuerdo a nuestro sistema operativo:
 
-Windows:
+Windows CMD:
 ```
 set FLASK_APP=api
 set FLASK_RUN_HOST=0.0.0.0
 set FLASK_ENV=development 
+```
+
+Windows PowerShell:
+```
+$Env:FLASK_APP="api"
+$Env:FLASK_RUN_HOST="0.0.0.0"
+$Env:FLASK_ENV="development"
 ```
 
 Mac o linux:
