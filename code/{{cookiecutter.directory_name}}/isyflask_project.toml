@@ -7,6 +7,9 @@ model = "templates/isyflask/model.txt"
 service = "templates/isyflask/service.txt"
 controller = "templates/isyflask/controller.txt"
 endpoint = "templates/isyflask/routes.txt"
+serviceEndpointConf = "templates/isyflask/endpoints/service.txt"
+controllerEndpointConf = "templates/isyflask/endpoints/controller.txt"
+endpointConf = "templates/isyflask/endpoints/routes.txt"
 
 [isyflask.project.folders]
 root = "api"
