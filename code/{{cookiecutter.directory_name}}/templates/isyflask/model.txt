@@ -1,5 +1,5 @@
 from typing import Any, Dict, List
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Float, DateTime
 from ...Core.Data.BaseModel import BaseModel
 
 class {model_name}(BaseModel):
