@@ -2,6 +2,7 @@
     "directory_name": "",
     "project_name": "{{ cookiecutter.directory_name.lower().replace(' ', '').replace('-', '').replace('_', '') }}",
     "repository": "{{ cookiecutter.directory_name }}",
+    "profile_name": "{{ cookiecutter.profile_name }}",
     "develop_branch": "main",
     "api_description": "API description",
     "api_url": "http://localhost:5000",
