@@ -1,6 +1,5 @@
 [isyflask.project.definition]
 name = "{{ cookiecutter.project_name }}"
-profile_name = "{{ cookiecutter.profile_name }}"
 description = ""
 
 [isyflask.template.files]

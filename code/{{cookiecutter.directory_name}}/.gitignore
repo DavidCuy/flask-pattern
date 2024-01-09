@@ -153,3 +153,5 @@ keys/*
 api/storage/local/*
 !api/storage/local/.gitkeep
 api/app.db
+
+.isy/*
