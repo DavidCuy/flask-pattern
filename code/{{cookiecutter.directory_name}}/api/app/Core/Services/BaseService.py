@@ -88,7 +88,7 @@ class BaseService:
         return cast(BaseModel, self.model).rules_for_store()
     
     def get_display_members(self) -> List[str]:
-        return cast(BaseModel, self.model).__class__.display_members()
+        return cast(BaseModel, self.model).display_members()
 
     def get_filter_columns(self) -> List[str]:
         return cast(BaseModel, self.model).filter_columns
