@@ -155,3 +155,4 @@ api/storage/local/*
 api/app.db
 
 .isy/*
+docker-pass.secret
