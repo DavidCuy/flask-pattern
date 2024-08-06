@@ -19,7 +19,8 @@ def index(service: BaseService):
     relationship_retrieve = get_relationship_params(request)
     filter_query = get_filter_params(request)
     filter_keys = filter_query.keys()
-
+    
+    encoder = AlchemyEncoder if 'relationships' not in relationship_retrieve else AlchemyRelationEncoder
     search_query = get_search_params(request)
     search_keys = service.get_search_columns()
     search_columns = list(set(search_keys).intersection(search_query.keys()))
@@ -44,8 +45,6 @@ def index(service: BaseService):
     try:
         query, elements = cast(BaseService, service).multiple_filters(session, filters, True, page, per_page, search_filters=filters_search, search_method=search_method)
         total_elements = cast(BaseService, service).count_with_query(query)
-        
-        encoder = AlchemyEncoder if 'relationships' not in relationship_retrieve else AlchemyRelationEncoder
         
         if 'accepts' in request.headers:
             accepts = request.headers['accepts']
@@ -78,8 +77,8 @@ def index(service: BaseService):
 def find(service: BaseService, id: int):
     session = get_session()
     relationship_retrieve = get_relationship_params(request)
+    encoder = AlchemyEncoder if 'relationships' not in relationship_retrieve else AlchemyRelationEncoder
     try:
-        encoder = AlchemyEncoder if 'relationships' not in relationship_retrieve else AlchemyRelationEncoder
         element = cast(BaseService, service).get_one(session, id)
         body = element.to_dict(jsonEncoder=encoder, encoder_extras=relationship_retrieve)
         status_code = HTTPStatusCode.OK.value
