@@ -1,4 +1,4 @@
-from api.app.Core.Services.BaseService import BaseService
+from isiflask_core.app.Services.BaseService import BaseService
 from api.app.Data.Models import {model_name}
 
 
