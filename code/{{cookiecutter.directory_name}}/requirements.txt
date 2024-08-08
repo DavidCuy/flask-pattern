@@ -1,4 +1,4 @@
-isyflask-cli==0.2.0
+isyflask-cli==0.6.0
 isiflask-core==0.1.1
 alembic==1.7.7
 click==8.1.3
