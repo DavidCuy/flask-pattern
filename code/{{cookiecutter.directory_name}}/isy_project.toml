@@ -1,8 +1,8 @@
-[isyflask.project.definition]
+[isy.project.definition]
 name = "{{ cookiecutter.project_name }}"
 description = ""
 
-[isyflask.template.files]
+[isy.template.files]
 model = ".isy/templates/model.txt"
 service = ".isy/templates/service.txt"
 controller = ".isy/templates/controller.txt"
@@ -11,7 +11,7 @@ serviceEndpointConf = ".isy/templates/endpoints/service.txt"
 controllerEndpointConf = ".isy/templates/endpoints/controller.txt"
 endpointConf = ".isy/templates/endpoints/routes.txt"
 
-[isyflask.project.folders]
+[isy.project.folders]
 root = "api"
 models = "api/app/Data/Models"
 services = "api/app/Services"
