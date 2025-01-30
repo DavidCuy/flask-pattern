@@ -154,6 +154,6 @@ api/storage/local/*
 !api/storage/local/.gitkeep
 api/app.db
 
-
+.isy/*
 !.isy/templates/*
 docker-pass.secret
