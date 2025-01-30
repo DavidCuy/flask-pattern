@@ -1,9 +1,9 @@
 from flask import Blueprint
-from api.app.Controllers.{model_name}Controller import index, find, store, update, delete
-from api.app.Services.{model_name}Service import {model_name}Service
+from api.app.Controllers.{{model_name}}Controller import index, find, store, update, delete
+from api.app.Services.{{model_name}}Service import {{model_name}}Service
 
 {model_name_lower}_router = Blueprint('{model_name_lower}', __name__)
-{model_name_lower}_service = {model_name}Service()
+{model_name_lower}_service = {{model_name}}Service()
 
 {model_name_lower}_router.route('/', methods=['GET'], defaults={{'service': {model_name_lower}_service}}) (index)
 {model_name_lower}_router.route('/', methods=['POST'], defaults={{'service': {model_name_lower}_service}}) (store)

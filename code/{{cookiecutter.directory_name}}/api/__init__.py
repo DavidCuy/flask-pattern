@@ -6,7 +6,7 @@ from flask_cors import CORS
 from flask.json import jsonify
 
 import api.database.DBConnection as DBConn
-from isiflask_core.app.Exceptions.APIException import APIException
+from isy_core.app.Exceptions.APIException import APIException
 
 
 def create_app():

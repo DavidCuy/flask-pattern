@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm.session import Session as ORMSession
 import Environment as env
 from ..config.database import config
-from isiflask_core.database.DBConnection import connect_to_main_app
+from isy_core.database.DBConnection import connect_to_main_app
 
 ## Database connection string
 connect_url = config[env.DB_DRIVER]['conn_string']
