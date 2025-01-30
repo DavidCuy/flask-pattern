@@ -2,24 +2,24 @@ from typing import Any, Dict, List
 from sqlalchemy import Column, Integer, String, Float, DateTime
 from isiflask_core.app.Data.BaseModel import BaseModel
 
-class {{model_name}}(BaseModel):
-    """ Table {{model_name}}s Database model
+class {model_name}(BaseModel):
+    """ Table {model_name}s Database model
 
     Args:
         BaseModel (ORMClass): Parent class
 
     Returns:
-        {{model_name}}: Instance of model
+        {model_name}: Instance of model
     """
     __tablename__ = '{table_name}'
-    id = Column("Id{{model_name}}", Integer, primary_key=True)
+    id = Column("Id{model_name}", Integer, primary_key=True)
     
     model_path_name = "{model_name_lower}"
     
     @classmethod
     def property_map(self) -> Dict:
         return {{
-            "id": "Id{{model_name}}"
+            "id": "Id{model_name}"
         }}
     
     @classmethod
